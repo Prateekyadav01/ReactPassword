@@ -6,7 +6,7 @@ const Password = () => {
     const [upperCase, setUpperCase] = useState(false);
     const [number, setNumber] = useState(false);
     const [symbol, setSymbol] = useState(false);
-    const [length, setLength] = useState(8); 
+    const [length, setLength] = useState(8); // Default password length
 
     const generatePassword = () => {
         const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
@@ -21,7 +21,7 @@ const Password = () => {
         if (symbol) validChars += symbolChars;
 
         if (!validChars) {
-            return '';
+            return ''; // No valid character type selected
         }
 
         let generatedPassword = '';
@@ -42,6 +42,11 @@ const Password = () => {
 
         const newPassword = generatePassword();
         setPassword(newPassword);
+    };
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(password);
+        alert('Password copied to clipboard!');
     };
 
     return (
@@ -120,10 +125,19 @@ const Password = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
+                            className="w-full px-4 py-2 text-white bg-black rounded-md hover:bg-blue-600 focus:outline-none"
                         >
                             Generate Password
                         </button>
+                        {password && (
+                            <button
+                                type="button"
+                                onClick={handleCopy}
+                                className="w-full px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none"
+                            >
+                                Copy Password
+                            </button>
+                        )}
                     </div>
                 </form>
             </div>
